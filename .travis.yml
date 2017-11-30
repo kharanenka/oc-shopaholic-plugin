@@ -62,8 +62,7 @@ jobs:
           fi
       deploy:
         provider: releases
-        api_key:
-          secure: b0debf1ffb68de4f8328cd21f198c78d954d0854
+        api_key: b0debf1ffb68de4f8328cd21f198c78d954d0854
         file: "$NEW_NAME.zip"
         skip_cleanup: true
         on:
