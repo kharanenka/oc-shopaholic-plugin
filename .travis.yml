@@ -6,14 +6,14 @@ cache:
 
 php:
   - 7.0
-  - 7.1
-  - nightly
+#  - 7.1
+#  - nightly
   
 services:
   - mysql
   
 before_install:
-  - mysql -e 'CREATE DATABASE database;'
+  - mysql -e 'CREATE DATABASE test CHARACTER SET utf8 COLLATE utf8_general_ci;'
   
 matrix:
   allow_failures:
@@ -30,6 +30,7 @@ before_script:
   - if [[ "$BUILD" != true ]]; then
       mkdir -p build/logs;
       composer create-project october/october october;
+      sed -i "s/'database'  => 'database',/'database'  => 'test',/" october/config/database.php
       php october/artisan october:up
       php october/artisan plugin:install Lovata.Toolbox
       mkdir -p ./october/plugins/lovata/shopaholic;
